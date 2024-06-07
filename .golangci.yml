@@ -1,0 +1,24 @@
+run:
+  tests: false
+  output:
+    format: tab
+  skip-dirs:
+    - vendor
+
+linters:
+  enable:
+    - unconvert
+    - megacheck
+    - unused
+    - gas
+    - gocyclo
+    - dupl
+    - misspell
+    - unparam
+    - typecheck
+    - ineffassign
+    - revive
+  disable-all: true
+
+issues:
+  exclude-use-default: false

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.github.cappuccinotm.gcache.example;
+
+option go_package = "github.com/cappuccinotm/gcache/tspb";
+
+service TestService {
+  rpc Test(TestRequest) returns (TestResponse);
+}
+
+message TestRequest { string key = 1; }
+
+message TestResponse { string value = 1; }

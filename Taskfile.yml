@@ -1,0 +1,11 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GO_MODULE: github.com/cappuccinotm/gcache
+
+tasks:
+  gen/example/proto:
+    desc: "generate example protobuf files"
+    cmd: buf generate
