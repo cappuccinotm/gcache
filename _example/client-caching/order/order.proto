@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.github.cappuccinotm.gcache.example;
+
+option go_package = "github.com/cappuccinotm/gcache/_example/order";
+
+service OrderService {
+  rpc GetOrder(GetOrderRequest) returns (Order) {}
+}
+
+message GetOrderRequest {
+  string id = 1;
+}
+
+message Order {
+  string id = 1;
+  string customer_id = 2;
+  repeated OrderItem items = 3;
+
+  message OrderItem {
+    string id = 1;
+    string name = 2;
+    int32 quantity = 3;
+  }
+}

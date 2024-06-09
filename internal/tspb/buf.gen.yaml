@@ -1,12 +1,12 @@
 version: v2
 plugins:
   - local: protoc-gen-go
-    out: internal/tspb
+    out: .
     opt: paths=source_relative
 
   - local: protoc-gen-go-grpc
-    out: internal/tspb
+    out: .
     opt: paths=source_relative
 
 inputs:
-  - directory: internal/tspb
+  - directory: .

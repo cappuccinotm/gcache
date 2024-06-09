@@ -6,6 +6,18 @@ vars:
   GO_MODULE: github.com/cappuccinotm/gcache
 
 tasks:
+  gen:
+    desc: "generate protobuf files"
+    cmds:
+      - task: gen/example/proto
+      - task: gen/test/proto
+
   gen/example/proto:
     desc: "generate example protobuf files"
     cmd: buf generate
+    dir: _example/order
+
+  gen/test/proto:
+    desc: "generate test protobuf files"
+    cmd: buf generate
+    dir: internal/tspb
