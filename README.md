@@ -1,9 +1,11 @@
 # gcache [![Go Reference](https://pkg.go.dev/badge/github.com/cappuccinotm/gcache.svg)](https://pkg.go.dev/github.com/cappuccinotm/gcache) [![Go](https://github.com/cappuccinotm/gcache/actions/workflows/go.yaml/badge.svg)](https://github.com/cappuccinotm/gcache/actions/workflows/go.yaml) [![codecov](https://codecov.io/gh/cappuccinotm/gcache/graph/badge.svg?token=We5B4lzTNj)](https://codecov.io/gh/cappuccinotm/gcache)
-gcache is a gRPC caching library that provides a simple way to cache gRPC requests and responses. It is designed to be used with gRPC services that have a high request rate and where caching can improve the performance of the service.
+gcache uses a plain old `ETag`, `If-None-Match` (as defined in [RFC7232](https://datatracker.ietf.org/doc/html/rfc7232)), [`Cache-Control`](https://datatracker.ietf.org/doc/html/rfc7234) headers to control the caching of responses. 
 
-It uses a plain old ETag and If-None-Match headers to cache the responses. The cache is stored in memory and is not persistent (unless you use a persistent cache store).
+The standard is mostly used in caching the static files, but it can be used in caching the dynamic content as well. 
 
-It also provides a server-side caching implementation.
+Briefly, the key idea is that the gRPC service responds to the client with the `ETag` header in metadata, client caches the response with this `ETag`, sends the request to the service with that `ETag` of the cached response, and, if the service has detected that the resource hasn't changed (judging by the provided `ETag`), responds the client with `codes.Aborted` and the provided `ETag` (similar with `304 Not Modified` status code).
+
+The package also provides a server-side cache, it looks only for a client's `Cache-Control` header, if it is set to `no-cache`, the server doesn't send the cached response and evaluates the response as usual.
 
 ## Installation
 ```shell
