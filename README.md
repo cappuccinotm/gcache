@@ -14,6 +14,7 @@ go get -u github.com/cappuccinotm/gcache
 
 ## Usage
 - [Client-side caching](#client-side-caching)
+  - [Complete client-side caching example](_example/client-caching/main.go)
 - [Server-side caching](#server-side-caching)
 
 ### Client-side caching
