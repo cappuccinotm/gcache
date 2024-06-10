@@ -32,17 +32,19 @@ type Interceptor struct {
 
 // NewInterceptor makes a new Interceptor.
 func NewInterceptor(opts ...Option) *Interceptor {
-	l, _ := lru.New[string, Entry](1024)
-
 	c := &Interceptor{
 		codec:  RawBytesCodec{},
 		logger: slog.New(slog.NewTextHandler(io.Discard, nil)),
-		store:  lruWrapper{backend: l},
 		filter: regexp.MustCompile(`.*`),
 	}
 
 	for _, opt := range opts {
 		opt(c)
+	}
+
+	if c.store == nil { // lazy init for LRU
+		l, _ := lru.New[string, Entry](1024)
+		c.store = NewLRU(l)
 	}
 
 	return c
